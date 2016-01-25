@@ -24,4 +24,6 @@ urlpatterns = [
     url(r'^minha_area/$', 'moveiseletros.views.index', name='minha_area'),
     url(r'^$', login, name='entrar'),
     url(r'^sair/$', logout, {'next_page': 'entrar'}, name='sair'),
+    url(r'^cadastros/', include('cadastros.urls')),
+    url(r'^cadastros/$', 'moveiseletros.views.cadastros', name='cadastros'),
 ]

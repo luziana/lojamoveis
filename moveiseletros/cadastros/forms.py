@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from passwords.fields import PasswordField
 
-from .models import CustomUser, Endereco, Funcionario
+from .models import CustomUser, Endereco, Funcionario, Cliente
 
 
 class UserCreationForm(forms.ModelForm):
@@ -49,3 +49,7 @@ class EnderecoForm(forms.ModelForm):
         fields = "__all__"
 
 
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = "__all__"

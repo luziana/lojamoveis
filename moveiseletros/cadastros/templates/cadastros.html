@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+            <div class="span8">
+                <div class="box">
+                    <div class="box-content">
+                        <div class="btn-group-box">
+                            <button class="btn"><i class="icon-dashboard icon-large"></i><br/><small>Mercadorias</small></button>
+                            <button class="btn"><i class="icon-user icon-large"></i><br/><small>Funcionarios</small></button>
+                            <a class="btn" href="{% url 'cadastrar_cliente' %}"><i class="icon-search icon-large"></i><br/><small>Clientes</small></a>
+                            <button class="btn"><i class="icon-list-alt icon-large"></i><br/><small>Fornecedores</small></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{% endblock %}

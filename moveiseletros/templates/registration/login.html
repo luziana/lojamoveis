@@ -48,6 +48,9 @@
                     <div class="span8">
                         <div class="container-signin">
                             <legend>Entrar</legend>
+                            <div class="span3">
+                                <img class="img-responsive" alt="logo" src="{% static "images/logo.jpg" %}">
+                            </div>
                             <form  method='POST'  class='form-signin' autocomplete='off'>
                                  {% csrf_token %}
                                 {% bootstrap_form form %}
@@ -58,13 +61,16 @@
                                 <footer class="signin-actions">
                                     <input class="btn btn-primary" type='submit' id="submit" value='Entrar'/>
                                 </footer>
+
                             </form>
                         </div>
+
                     </div>
-                    <div class="span3"></div>
+                    <div class="span3">
+
+                    </div>
+
                 </div>
-
-
 
                 </div>-->
             </div>
