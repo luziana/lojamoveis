@@ -1,8 +1,71 @@
 from django.db import models
 
+# -*- coding: utf-8 -*-
 
-class Cargo(models.Model):
-    nome = models.CharField(max_length=200)
+from django.db import models
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.utils import timezone
+
+
+class CustomUserManager(BaseUserManager):
+    def _create_user(self, cpf, email, password, is_staff, is_superuser, **extra_fields):
+        now = timezone.now()
+        if not cpf:
+            raise ValueError('O CPF deve ser definido')
+        email = self.normalize_email(email)
+        user = self.model(cpf=cpf, email=email,
+                          is_staff=is_staff, is_active=True,
+                          is_superuser=is_superuser,
+                          date_joined=now, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_user(self, cpf, email, password=None, **extra_fields):
+        return self._create_user(cpf, email, password, False, False, **extra_fields)
+
+    def create_superuser(self, cpf, email, password, **extra_fields):
+        return self._create_user(cpf, email, password, True, True, **extra_fields)
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    VENDEDOR = 1
+    GERENTE = 2
+    CAIXA = 3
+    CREDIARISTA = 4
+    USER_TYPE_CHOICES = (
+        (VENDEDOR, u'Vendedor'),
+        (GERENTE, u'Gerente'),
+        (CAIXA, u'Operador Caixa'),
+        (CREDIARISTA, u'Crediarista')
+    )
+    cpf = models.CharField(u'CPF', max_length=11, unique=True)
+    email = models.EmailField(u'email', max_length=255, unique=True)
+    full_name = models.CharField(u'nome completo', max_length=255, blank=True)
+    date_joined = models.DateTimeField(u'data de registro', default=timezone.now)
+    type = models.PositiveSmallIntegerField(u'tipo',
+                                            choices=USER_TYPE_CHOICES,
+                                            default=GERENTE)
+    is_staff = models.BooleanField(u'staff status', default=False)
+    is_active = models.BooleanField(u'ativo', default=True)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'cpf'
+    REQUIRED_FIELDS = ['email', ]
+
+    class Meta:
+        verbose_name = u'usuario'
+        verbose_name_plural = u'usuarios'
+
+    def get_full_name(self):
+        return self.full_name
+
+    def get_short_name(self):
+        return self.full_name
+
+    def __unicode__(self):
+        return self.cpf
 
 
 class Endereco(models.Model):
@@ -15,8 +78,7 @@ class Endereco(models.Model):
     pais = models.CharField(max_length=200)
 
 
-class Funcionario(models.Model):
-    cpf = models.CharField(max_length=11)
+class Funcionario(CustomUser):
     rg = models.CharField(max_length=11)
     data_nascimento = models.DateField()
     hora_entrada = models.DateTimeField()
@@ -26,8 +88,11 @@ class Funcionario(models.Model):
     nome = models.CharField(max_length=200)
     telefone = models.IntegerField()
     endereco = models.ForeignKey('Endereco')
-    cargo = models.ForeignKey('Cargo')
     desativado = models.BooleanField()
+    foto = models.ImageField()
+
+    def __unicode__(self):
+        return self.type
 
 
 class Fornecedor(models.Model):
@@ -55,3 +120,29 @@ class Mercadoria(models.Model):
     frete = models.IntegerField()
     embalagem = models.IntegerField()
     custo_fixo = models.IntegerField()
+
+
+class Cliente(models.Model):
+    data_cadastro = models.DateField()
+    apelido = models.CharField(max_length=200)
+    cpf = models.CharField(max_length=11)
+    rg = models.CharField(max_length=11)
+    cnpj = models.CharField(max_length=16)
+    sexo = models.CharField(max_length=1)
+    data_nascimento = models.DateField()
+    profissao = models.CharField(max_length=200)
+    nome_pai = models.CharField(max_length=300)
+    nome_mae = models.CharField(max_length=300)
+    conjugue = models.CharField(max_length=300)
+    endereco_cliente = models.ForeignKey('Endereco')
+    empresa = models.CharField(max_length=200)
+    renda = models.FloatField()
+    endereco_empresa = models.CharField(max_length=200)
+    bairro = models.CharField(max_length=200)
+    cidade = models.CharField(max_length=200)
+    uf = models.CharField(max_length=2)
+    cep = models.IntegerField()
+    fones = models.IntegerField()
+    email = models.EmailField()
+    desativado = models.BooleanField()
+    bloqueado = models.BooleanField()

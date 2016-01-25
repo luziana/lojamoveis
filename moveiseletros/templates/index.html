@@ -1,0 +1,49 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Diário Oficial</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/scrolling-nav.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/skins/_all-skins.min.css' %}">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    {% block extrahead %}
+    {% endblock %}
+</head>
+
+</head>
+
+<body class="hold-transition skin-blue layout-top-nav" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+{% include 'includes/index/menu.html' %}
+{% include 'includes/index/introducao.html' %}
+{% include 'includes/index/diario_oficial.html' %}
+{% include 'includes/index/aderir.html' %}
+{% include 'includes/index/legislativo.html' %}
+{% include 'includes/index/contatos.html' %}
+{% include 'includes/footer.html' %}
+
+<script src="{% static 'plugins/jQuery/jQuery-2.1.4.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+<script src="{% static 'bootstrap/js/jquery.easing.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
+<script src="{% static 'plugins/slimScroll/jquery.slimscroll.min.js' %}"></script>
+<script src="{% static 'plugins/fastclick/fastclick.min.js' %}"></script>
+<script src="{% static 'dist/js/app.min.js' %}"></script>
+<script src="{% static 'dist/js/demo.js' %}"></script>
+
+{% block extraimports %}
+{% endblock %}
+
+</body>
+</html>

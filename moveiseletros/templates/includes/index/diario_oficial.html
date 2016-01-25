@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<section id="do" class="intro-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                <div class="panel box box-primary">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                Diário Oficial
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="box-body">
+                            <p class="about-des">Diário Oficial Eletrônico, é o veículo oficial de divulgação da
+                                Administração Pública disponibilizado na rede mundial de computadores e que no processo
+                                de produção,
+                                editoração e diagramação das edições, utiliza assinatura e certificação digital
+                                fornecida por autoridade certificadora credenciada no âmbito da Infra-Estrutura de
+                                Chaves Públicas Brasileira - ICP Brasil.</p>
+
+                            <p class="about-des">Dessa forma, há de se concordar, que a criação de um Diário Oficial
+                                para a divulgação dos atos de interesse das Casas Legislativas e,
+                                por conseguinte, dos Municípios, é de total relevância, e, portanto, de interesse
+                                local.</p>
+
+                            <p class="about-des">Ademais, além do interesse local, há, também, o interesse de relevância
+                                pública na criação dos Diários Oficiais eletrônicos dos municípios, que indubitavelmente
+                                tem caráter essencial.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div id="collapseOne" class="panel-collapse collapse in">
+                    <div class="box-body">
+                        <img class="img-responsive" alt="Logo-Diario-Oficial"
+                             src="{% static 'images/bt_diario_oficial.png' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

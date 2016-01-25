@@ -12,12 +12,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
+from django.core.urlresolvers import reverse_lazy
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -25,25 +24,30 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q-n30sw5bz!=6$bvr@hg%3hd!*4b!)os!ldp)r6pun920uj=&0'
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'cadastros.CustomUser'
+
+LOGIN_URL = reverse_lazy('entrar')
+
+LOGIN_REDIRECT_URL = reverse_lazy('minha_area')
 
 # Application definition
 
 INSTALLED_APPS = (
-    'material.admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'material',
-    'material.frontend',
-    'cadastros', 
+    'cadastros',
+    'bootstrap3',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,7 +66,7 @@ ROOT_URLCONF = 'moveiseletros.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,7 +110,81 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = 'staticfiles'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = 'media'
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+    'var/www/static/',
+)
+
+PASSWORD_MIN_LENGTH = 6
+
+PASSWORD_COMMON_SEQUENCES = []
 
 
+
+BOOTSTRAP3 = {
+
+    # The URL to the jQuery JavaScript file
+    'jquery_url': '/static/plugins/JQuery/jQuery-2.1.4.min.js',
+
+    # The Bootstrap base URL
+    'base_url': '/static/bootstrap/',
+
+    # The complete URL to the Bootstrap CSS file (None means derive it from base_url)
+    'css_url': None,
+
+    # The complete URL to the Bootstrap CSS file (None means no theme)
+    'theme_url': None,
+
+    # The complete URL to the Bootstrap JavaScript file (None means derive it from base_url)
+    'javascript_url': None,
+
+    # Put JavaScript in the HEAD section of the HTML document (only relevant if you use bootstrap3.html)
+    'javascript_in_head': False,
+
+    # Include jQuery with Bootstrap JavaScript (affects django-bootstrap3 template tags)
+    'include_jquery': False,
+
+    # Label class to use in horizontal forms
+    'horizontal_label_class': 'col-md-3',
+
+    # Field class to use in horizontal forms
+    'horizontal_field_class': 'col-md-9',
+
+    # Set HTML required attribute on required fields
+    'set_required': True,
+
+    # Set HTML disabled attribute on disabled fields
+    'set_disabled': False,
+
+    # Set placeholder attributes to label if no placeholder is provided
+    'set_placeholder': True,
+
+    # Class to indicate required (better to set this in your Django form)
+    'required_css_class': '',
+
+    # Class to indicate error (better to set this in your Django form)
+    'error_css_class': 'has-error',
+
+    # Class to indicate success, meaning the field has valid input (better to set this in your Django form)
+    'success_css_class': 'has-success',
+
+    # Renderers (only set these if you have studied the source and understand the inner workings)
+    'formset_renderers': {
+        'default': 'bootstrap3.renderers.FormsetRenderer',
+    },
+    'form_renderers': {
+        'default': 'bootstrap3.renderers.FormRenderer',
+    },
+    'field_renderers': {
+        'default': 'bootstrap3.renderers.FieldRenderer',
+        'inline': 'bootstrap3.renderers.InlineFieldRenderer',
+    },
+}

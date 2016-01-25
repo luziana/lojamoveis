@@ -1,0 +1,158 @@
+{% load staticfiles %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href="{% static 'plugins/daterangepicker/daterangepicker-bs3.css' %}">
+{% endblock %}
+
+<section id="intro" class="about-section">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-5">
+
+                <!-- Horizontal Form -->
+                <div class="box box-primary">
+                    <!-- form start -->
+                    <div class="box-body">
+
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active" align="center">
+                                    <img class="img-responsive" alt="Logo-Diario-Oficial"
+                                         src="{% static 'images/do2.png' %}">
+
+                                    <div class="carousel-caption">
+                                        Diário Oficial
+                                    </div>
+                                </div>
+                                <div class="item" align="center">
+                                    <img class="img-responsive" alt="ICP Brasil" src="{% static 'images/icp2.jpg' %}">
+
+                                    <div class="carousel-caption">
+                                        ICP Brasil
+                                    </div>
+                                </div>
+                                <div class="item" align="center">
+                                    <img class="img-responsive" alt="" src="{% static 'images/uvern.png' %}">
+
+                                    <div class="carousel-caption">
+                                        UVERN
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="fa fa-angle-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="fa fa-angle-right"></span>
+                            </a>
+                        </div>
+
+                    </div><!-- /.box-body -->
+
+                </div><!-- /.box -->
+
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Buscar Publicação</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <input type="text" class="form-control" placeholder="Código da Publicação">
+                            </div>
+                            <div class="col-xs-3">
+                                <div class="input-group">
+                                    <button class="btn btn-default pull-right" id="daterange-btn">
+                                        <i class="fa fa-calendar"></i> Período
+                                        <i class="fa fa-caret-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-3">
+                                <button type="submit" class="btn btn-primary">Buscar</button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <a href="#" class="pull-left">Busca Avançada</a>
+                        </div>
+                    </div><!-- /.box-body -->
+                </div>
+
+            </div>
+
+            <div class="col-md-7">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Ultimas Publicações</h3>
+                    </div>
+
+                    <div class="box-body">
+                        <ul class="mailbox-attachments clearfix">
+                            {% for i in "123456" %}
+                            <li>
+                                <span class="mailbox-attachment-icon">
+                                    <img src="{% static 'images/publicacao_capa.jpg' %}">
+                                </span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i>
+                                        camaradepdf.pdf</a>
+                                    <span class="mailbox-attachment-size">
+                                        Data: 14/12/2015 <br> Edição: 12
+                                      <a href="#" class="btn btn-default btn-xs pull-right"><i
+                                              class="fa fa-cloud-download"></i></a>
+                                    </span>
+                                </div>
+                            </li>
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+
+                    <div class="box-body">
+                        <div class="box-footer with-border">
+                            <a href="#" class="pull-right">Veja mais ...</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% block extraimports %}
+
+<script src="{% static 'plugins/jQuery/jQuery-2.1.4.min.js' %}"></script>
+<script src="{% static 'plugins/daterangepicker/moment.js' %}"></script>
+<script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+
+<script>
+    $(function () {
+        //Date range as a button
+        $('#daterange-btn').daterangepicker({
+            ranges: {
+                'Hoje': [moment(), moment()],
+                'Ontem': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Últimos 7 dias': [moment().subtract(6, 'days'), moment()],
+                'Últimos 30 dias': [moment().subtract(29, 'days'), moment()],
+                'Este mês': [moment().startOf('month'), moment().endOf('month')],
+                'Último mês': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            startDate: moment().subtract(29, 'days'),
+            endDate: moment()
+        }, function (start, end) {
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            $('applyBtn').html('Aplicar');
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+          <div class="box">
+                <div class="box-header">
+                      <h2 class="box-title">Usuários Cadastradas</h2>
+                      <div class="box-tools">
+                        <div class="input-group" style="width: 150px;">
+                          <div class="input-group-btn">
+                              <a href="{% url 'criar_usuario' %}"  class="btn btn-primary btn-sm pull-right">Novo usuário</a>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                            <th>Ações</th>
+                        </tr>                                            
+                        {% for usuario in usuario_list %}
+                        <tr>
+                            <td>{{ usuario.nome_completo }}</td>
+                            <td>{{ usuario.cpf }}</td>
+                            <td>{{ usuario.email}}</td>
+                            <td>{{ usuario.get_tipo_display }}</td>
+                            <td>
+                                <a href="{% url 'editar_usuario' usuario.pk  %}"><i class="fa fa-fw fa-pencil-square-o"></i>Editar</a>
+                                <a href="#"><i class="fa fa-fw fa-trash-o"></i>Excluir</a> 
+                            </td>
+                        </tr>
+                        {% empty %}
+                            <tr>Nenhum usuário registrado.</tr>
+                        {% endfor %}   
+                    </table>                   
+                </div>                
+          </div>
+    </div>
+</div>
+
+{% endblock %}
+{# Read the documentation for more information #}
