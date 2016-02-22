@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12">
+          <div class="box">
+                <div class="box-header">
+                      <h2 class="box-title">Clientes Cadastrados</h2>
+                      <div class="box-tools">
+                        <div class="input-group" style="width: 150px;">
+                          <div class="input-group-btn">
+                              <a href="{% url 'cadastrar_cliente' %}"  class="btn btn-primary btn-sm pull-right">Novo Cliente</a>
+                          </div>
+                        </div>
+                      </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                      <table class="table table-hover">
+                            <tr>
+                                <th>CPF</th>
+                                <th>RG</th>
+                                <th>Apelido</th>
+                                <th>Sexo</th>
+                                <th>Profissão</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Ações</th>
+                            </tr>
+                            {% for cliente in clientes %}
+                            <tr>
+                                <td>{{ cliente.cpf }}</td>
+                                <td>{{ cliente.rg }}</td>
+                                <td>{{ cliente.apelido }}</td>
+                                <td>{{ cliente.sexo }}</td>
+                                <td>{{ cliente.profissao }}</td>
+                                <td>{{ cliente.email }}</td>
+                                <td>{{ cliente.fones}}</td>
+                                <td>
+                                    <a href="#"><i class="fa fa-fw fa-pencil-square-o"></i>Editar</a>
+                                    <a href="#"><i class="fa fa-fw fa-trash-o"></i>Excluir</a> </td>
+                            </tr>
+                            {% endfor %}
+                      </table>
+                </div><!-- /.box-body -->
+
+                <div class="box-footer clearfix">
+                    <ul class="pagination pagination-sm no-margin pull-right">
+                        {% if camaras.has_previous %}
+                           <li><a href="?page={{ contacts.previous_page_number }}">Anterior</a></li>
+                        {% endif %}
+
+                        <li>
+                            <a href="#">Página {{ clientes.number }} de {{ clientes.paginator.num_pages }}</a></li>
+                        </li>
+
+                        {% if clientes.has_next %}
+                            <li><a href="?page={{ clientes.next_page_number }}">Próximo</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+          </div><!-- /.box -->
+    </div>
+</div>
+
+
+{% endblock %}
+{# Read the documentation for more information #}

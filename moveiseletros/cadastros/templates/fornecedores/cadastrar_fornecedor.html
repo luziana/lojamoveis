@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_messages %}
+
+{% block content %}
+
+                  <!--  <div class="alert alert-block alert-info">
+                        <p>
+                            Enter updated security information for your account as desired.  Fields marked with an asterisk
+                            are required.
+                        </p>
+                    </div>-->
+
+
+                <legend>Cadastrar Cliente</legend><br>
+                <form method="post">
+
+                        {% csrf_token %}
+                        {% bootstrap_form fornecedor_form layout='horizontal' %}
+
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary pull-right ">Enviar</button>
+                    </div>
+                </form>
+
+
+{% endblock %}
+
+{# Read the documentation for more information #}

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Endereco, Cliente
-from .models import Funcionario
-from .models import Mercadoria
+from .models import Funcionario, Venda
+from .models import Mercadoria, Fornecedor, Conta_a_pagar, Conta_a_receber, Compra
 
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
@@ -15,6 +15,11 @@ from .models import CustomUser
 admin.site.register(Endereco)
 admin.site.register(Funcionario)
 admin.site.register(Mercadoria)
+admin.site.register(Fornecedor)
+admin.site.register(Compra)
+admin.site.register(Conta_a_receber)
+admin.site.register(Conta_a_pagar)
+admin.site.register(Venda)
 admin.site.register(Cliente)
 
 

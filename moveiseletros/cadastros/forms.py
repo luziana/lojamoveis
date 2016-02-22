@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from localflavor.br.forms import BRCPFField, BRPhoneNumberField
 from passwords.fields import PasswordField
 
-from .models import CustomUser, Endereco, Funcionario, Cliente
+from .models import CustomUser, Endereco, Funcionario,\
+    Cliente, Fornecedor, Compra, Conta_a_pagar, Conta_a_receber, Mercadoria
 
 
 class UserCreationForm(forms.ModelForm):
@@ -56,6 +58,42 @@ class ClienteForm(forms.ModelForm):
 
 
 class FuncionarioForm(forms.ModelForm):
+    cpf = BRCPFField(label='CPF do Funcionário',
+                                help_text=u'insira apenas números sem traços nem pontos',
+                                max_length=14)
+
+    telefone = BRPhoneNumberField(label='Telefone', help_text=u'insira apenas números sem traços nem pontos')
+
     class Meta:
         model = Funcionario
-        fields = "__all__"
+        fields = ('cpf', 'password', 'nome','rg', 'endereco',  'telefone', 'data_nascimento', 'hora_entrada', 'hora_saida', 'comissao', 'desconto', 'foto')
+
+
+class FornecedorForm(forms.ModelForm):
+    class Meta:
+        model = Fornecedor
+        fields = '__all__'
+
+
+class CompraForm(forms.ModelForm):
+    class Meta:
+        model = Compra
+        fields = '__all__'
+
+
+class Conta_pagarForm(forms.ModelForm):
+    class Meta:
+        model = Conta_a_pagar
+        fields = '__all__'
+
+
+class Conta_receberForm(forms.ModelForm):
+    class Meta:
+        model = Conta_a_receber
+        fields = '__all__'
+
+
+class MercadoriaForm(forms.ModelForm):
+    class Meta:
+        model = Mercadoria
+        fields = '__all__'

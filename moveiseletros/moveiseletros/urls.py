@@ -17,13 +17,14 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.conf.urls import url
 from django.contrib.auth.views import login, logout
+from .views import index, cadastros
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^minha_area/$', 'moveiseletros.views.index', name='minha_area'),
+    url(r'^minha_area/$', index, name='minha_area'),
     url(r'^$', login, name='entrar'),
     url(r'^sair/$', logout, {'next_page': 'entrar'}, name='sair'),
     url(r'^cadastros/', include('cadastros.urls')),
-    url(r'^cadastros/$', 'moveiseletros.views.cadastros', name='cadastros'),
+    url(r'^cadastros/$', cadastros, name='cadastros'),
 ]

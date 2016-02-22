@@ -79,20 +79,17 @@ class Endereco(models.Model):
 
 
 class Funcionario(CustomUser):
+    nome = models.CharField(max_length=200)
     rg = models.CharField(max_length=11)
+    endereco = models.ForeignKey('Endereco')
+    telefone = models.IntegerField()
     data_nascimento = models.DateField()
     hora_entrada = models.DateTimeField()
     hora_saida = models.DateTimeField()
     comissao = models.FloatField()
     desconto = models.FloatField()
-    nome = models.CharField(max_length=200)
-    telefone = models.IntegerField()
-    endereco = models.ForeignKey('Endereco')
-    desativado = models.BooleanField()
     foto = models.ImageField()
-
-    def __unicode__(self):
-        return self.type
+    desativado = models.BooleanField()
 
 
 class Fornecedor(models.Model):
@@ -105,6 +102,11 @@ class Fornecedor(models.Model):
     representante = models.CharField(max_length=200)
     telefone_representante = models.IntegerField()
     observacoes = models.TextField(max_length=500)
+
+
+class Ncm(models.Model):
+    ncm = models.IntegerField()
+    grupo_ncm = models.IntegerField()
 
 
 class Mercadoria(models.Model):
@@ -120,6 +122,7 @@ class Mercadoria(models.Model):
     frete = models.IntegerField()
     embalagem = models.IntegerField()
     custo_fixo = models.IntegerField()
+    ncm = models.ForeignKey('Ncm')
 
 
 class Cliente(models.Model):
@@ -146,3 +149,28 @@ class Cliente(models.Model):
     email = models.EmailField()
     desativado = models.BooleanField()
     bloqueado = models.BooleanField()
+
+
+class Compra(models.Model):
+    fornecedor = models.ForeignKey('Fornecedor')
+    data_compra = models.DateField()
+    valor_compra = models.FloatField()
+
+
+class Venda(models.Model):
+    mercadoria = models.ForeignKey('Mercadoria')
+    cliente = models.ForeignKey('Cliente')
+    valor_venda = models.FloatField()
+    valor_venda_bruto = models.FloatField()
+    quantidade = models.IntegerField()
+
+
+class Conta_a_pagar(models.Model):
+    compra = models.ForeignKey('Compra')
+    valor_da_conta_a_pagar = models.FloatField()
+    data_vencimento = models.DateField()
+
+
+class Conta_a_receber(models.Model):
+    data_recebimento = models.DateField()
+    valor_da_conta = models.FloatField()
